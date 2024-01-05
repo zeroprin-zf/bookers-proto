@@ -6,10 +6,14 @@ class BooksController < ApplicationController
 
   def create
     #データを受け取り新規登録するためのインスタンスを作成。コントローラでしか使わないためローカル変数
-    book = Book.new(book_params)#モデルのインスタンスを作成
-    #データをデータベースに保存するためのsaveメソッド
-    book.save#モデルインスタンスをデータベースに保存するDBに実際に保存される
-    redirect_to book_path(book.id) #仮
+    @book = Book.new(book_params)#モデルのインスタンスを作成
+    if @book.save
+      redirect_to book_path(@book.id)#モデルインスタンスをデータベースに保存するDBに実際に保存される
+       #データをデータベースに保存するためのsaveメソッド
+    else
+      @books = Book.all
+      render :index
+    end
   end
 
   def show
@@ -27,6 +31,9 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
 
   private #private コントローラの中でしか呼び出せない領域
