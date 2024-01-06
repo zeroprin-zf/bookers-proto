@@ -8,9 +8,11 @@ class BooksController < ApplicationController
     #データを受け取り新規登録するためのインスタンスを作成。コントローラでしか使わないためローカル変数
     @book = Book.new(book_params)#モデルのインスタンスを作成
     if @book.save
+      flash[:notice] = "Book was successfully created." #flash[:notice]は箱のためメッセージを入れられる
       redirect_to book_path(@book.id)#モデルインスタンスをデータベースに保存するDBに実際に保存される
        #データをデータベースに保存するためのsaveメソッド
     else
+      flash.now[:alert] = "投稿できんかったわ"
       @books = Book.all
       render :index
     end
