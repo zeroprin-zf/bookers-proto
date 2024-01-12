@@ -1,15 +1,24 @@
 <h1>Books</h1>
+ <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+      </tr>
+    </thead>
 
-<% @books.each do |book| %>
- <h4>Title</h4>
- <span><%= book.title %></span>
-
- <h4>Body</h4>
- <span><%= book.body %></span>
- <span><%= link_to "Show", book_path(book.id) %>
-       <%= link_to "Edit", edit_book_path(book.id) %>
-       <%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></span>
-<% end %>
+ <% @books.each do |book| %>
+ <tbody>
+    <tr>
+       <td><%= book.title %></td>
+       <td><%= book.body %></td>
+       <td><%= link_to "Show", book_path(book.id) %></td>
+       <td><%= link_to "Edit", edit_book_path(book.id) %></td>
+       <td><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you Sure?" %></td>
+    </tr>
+  </tbody>
+  <% end %>
+  </table>
 
 <h1>New book</h1>
 <% if @book.errors.any? %>
